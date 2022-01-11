@@ -24,6 +24,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "jasmine-spec-reporter": "^7.0.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.0",
     "supertest": "^6.1.6",
@@ -34,7 +35,6 @@
     "@types/sharp": "^0.29.5",
     "express": "^4.17.1",
     "jasmine": "^3.10.0",
-    "jasmine-spec-reporter": "^7.0.0",
     "sharp": "^0.29.3"
   },
   "repository": {

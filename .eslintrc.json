@@ -15,5 +15,8 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "max-len": "off",
+        "new-cap": 0
+
     }
 }

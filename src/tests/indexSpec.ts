@@ -1,15 +1,40 @@
-import request from 'supertest';
-import express from 'express';
+import supertest from 'supertest';
+// import express from 'express';
+import app from '../server/server';
 
-// it('expect inputChecker false', () => {
-//   expect(ic.inputChecker()).toEqual(25);
-// });
-const app = express();
+const request = supertest(app);
 
-request(app)
-  .get('http://localhost:3000/api/resize?imageName=encenadaport.jpg&width=300&height=600')
-  .expect('Content-Type','image/jpeg')
-  .expect(200)
-  .end(function(err , res) {
-    if (err) throw err;
-  });
+describe('Test endpoint with bad image name', () => {
+  it('gets the api endpoint', async (done) => {
+    const response = await request.get('/api/resize?imageName=encenada.jpg&width=100&height=600');
+    expect(response.status).toBe(501);
+    done();
+  },
+  );
+});
+
+describe('Test endpoint with bad  width input', () => {
+  it('gets the api endpoint', async (done) => {
+    const response = await request.get('/api/resize?imageName=encenadaport.jpg&width="asfd"&height=600');
+    expect(response.status).toBe(501);
+    done();
+  },
+  );
+});
+describe('Test endpoint with bad  height input', () => {
+  it('gets the api endpoint', async (done) => {
+    const response = await request.get('/api/resize?imageName=encenadaport.jpg&width="600"&height=sfda');
+    expect(response.status).toBe(501);
+    done();
+  },
+  );
+});
+
+describe('Test endpoint with good inputs', () => {
+  it('gets the api endpoint', async () => {
+    const response = await request.get('/api/resize?imageName=encenadaport.jpg&width=600&height=600');
+    expect(response.status).toBe(200);
+    // done();
+  },
+  );
+});
