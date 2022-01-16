@@ -5,6 +5,6 @@ the base api is  http://localhost:3000/api/resize.
 
 imageName is the name of the image with type.
 
-the width is the widht size.
+the width is the width size.
 
 the height is the height size.
