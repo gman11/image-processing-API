@@ -1,9 +1,13 @@
 import express from 'express';
 import path from 'path';
-import sharp from 'sharp';
 import fs from 'fs';
+import sharpResize from '../services/sharpService';
 
-const resizeImage = async (req: express.Request, res: express.Response, next: Function): Promise<void> => {
+const resizeImage = async (
+  req: express.Request,
+  res: express.Response,
+  next: Function
+): Promise<void> => {
   try {
     const imageName = req.query.imageName;
     const width = Number(req.query.width);
@@ -11,8 +15,12 @@ const resizeImage = async (req: express.Request, res: express.Response, next: Fu
 
     const splitName = (imageName as string).split('.');
     const outputImageName = `${splitName[0]}_${width}_${height}.${splitName[1]}`;
-    const input = path.normalize(`../image-processing-api/images/fullSize/${imageName}`);
-    const output = path.normalize(`../image-processing-api/images/thumb/${outputImageName}`);
+    const input = path.resolve(
+      `./../image-processing-api/images/fullSize/${imageName}`
+    );
+    const output = path.resolve(
+      `./../image-processing-api/images/thumb/${outputImageName}`
+    );
     fs.access;
     if (fs.existsSync(output) == true) {
       // imaged already resized
@@ -20,17 +28,38 @@ const resizeImage = async (req: express.Request, res: express.Response, next: Fu
       next();
     } else {
       // resize image
-      const newImage = await sharp(input);
-      const resizedImaged = newImage.resize(width, height);
-      const savedImaged = resizedImaged.toFile(output);
-      savedImaged.then( () => {
-        req.query.image = path.resolve(output);
+      // const newImage = await sharp(input);
+      // const resizedImaged = newImage.resize(width, height);
+      // const savedImaged = resizedImaged.toFile(output);
+      // savedImaged.then( () => {
+      //  req.query.image = path.resolve(output);
+      //  next();
+      // });
+
+      //  sharpResize(input,output,width,height ).then(()=>{
+      //      console.log("inside sharpResize");
+      //     req.query.image = output;
+      //     next();
+
+      //  });
+
+      const test = await sharpResize(input, output, width, height);
+
+      if (test) {
+        console.log('inside sharpResize True');
+        req.query.image = output;
         next();
-      });
+      } else {
+        console.log('inside sharpResize false');
+        res.send(`<div>Error Getting Image Bool false</div>`);
+        return;
+      }
+
+      console.log('end of resizeImage');
     }
-  } catch (err:any) {
+  } catch (err: any) {
     console.log(err);
-    res.send( `<div>Error Getting Image</div>`);
+    res.send(`<div>Error Getting Image</div>`);
     return;
   }
 };
