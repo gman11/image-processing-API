@@ -12,7 +12,7 @@ const inputChecker = (
   const height = Number(req.query.height);
 
   const imagePath = path.resolve(
-    `./../image-processing-api/images/fullSize/${imageName}`
+    `./images/fullSize/${imageName}`
   );
   if (fs.existsSync(imagePath) == false) {
     res.status(501).send(`<div>The image name was not found</div>`);
