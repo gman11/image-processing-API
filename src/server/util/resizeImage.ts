@@ -16,23 +16,16 @@ const resizeImage = async (
     const splitName = (imageName as string).split('.');
     const outputImageName = `${splitName[0]}_${width}_${height}.${splitName[1]}`;
 
-    const testPath = path.resolve(
-        `./images/fullSize/${imageName}`
-      );
+    const testPath = path.resolve(`./images/fullSize/${imageName}`);
     console.log(testPath);
-    const input = path.resolve(
-      `./images/fullSize/${imageName}`
-    );
-    const output = path.resolve(
-      `./images/thumb/${outputImageName}`
-    );
+    const input = path.resolve(`./images/fullSize/${imageName}`);
+    const output = path.resolve(`./images/thumb/${outputImageName}`);
     fs.access;
     if (fs.existsSync(output) == true) {
       // imaged already resized
       req.query.image = path.resolve(output);
       next();
     } else {
-   
       const result = await sharpResize(input, output, width, height);
 
       if (result) {
@@ -42,7 +35,6 @@ const resizeImage = async (
         res.send(`<div>Error Getting Image Bool false</div>`);
         return;
       }
-
     }
   } catch (err: any) {
     console.log(err);

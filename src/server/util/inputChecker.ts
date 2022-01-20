@@ -11,9 +11,7 @@ const inputChecker = (
   const width = Number(req.query.width);
   const height = Number(req.query.height);
 
-  const imagePath = path.resolve(
-    `./images/fullSize/${imageName}`
-  );
+  const imagePath = path.resolve(`./images/fullSize/${imageName}`);
   if (fs.existsSync(imagePath) == false) {
     res.status(501).send(`<div>The image name was not found</div>`);
     return;

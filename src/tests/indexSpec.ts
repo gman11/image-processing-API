@@ -29,14 +29,18 @@ describe('Test endpoint with bad  height input', () => {
   });
 });
 
+describe('Test endpoint with good inputs', () => {
+  it('gets the api endpoint', () => {
+    request
+      .get('/api/resize?imageName=encenadaport.jpg&width="600&height=600')
+      .expect(501);
+  });
+});
+
 describe('Test sharp service', () => {
   it('should return true', async () => {
-    const input = path.resolve(
-      `./../image-processing-api/images/fullSize/encenadaport.jpg`
-    );
-    const output = path.resolve(
-      `./../image-processing-api/images/thumb/encenadaport_600_600.jpg`
-    );
+    const input = path.resolve(`./images/fullSize/encenadaport.jpg`);
+    const output = path.resolve(`./images/thumb/encenadaport_600_600.jpg`);
     const width: number = 600;
     const height: number = 600;
 
