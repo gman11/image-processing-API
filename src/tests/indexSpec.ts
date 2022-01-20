@@ -32,8 +32,8 @@ describe('Test endpoint with bad  height input', () => {
 describe('Test endpoint with good inputs', () => {
   it('gets the api endpoint', () => {
     request
-      .get('/api/resize?imageName=encenadaport.jpg&width="600&height=600')
-      .expect(501);
+      .get('/api/resize?imageName=encenadaport.jpg&width=600&height=600')
+      .expect(200);
   });
 });
 
